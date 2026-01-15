@@ -30,16 +30,16 @@ app.post("/api/stocks", async (req, res) => {
             stocks: stockData,
             report
         });
-        
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Failed to fetch stock data" });
     }
 });
 
+const PORT = process.env.PORT || 3000;
 
 
-
-app.listen(3000, () => {
-    console.log("API server running on http://localhost:3000");
+app.listen(PORT, () => {
+    console.log(`API server running on http://localhost:${PORT}`);
 });

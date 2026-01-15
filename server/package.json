@@ -2,7 +2,8 @@
     "name": "stock-ai-server",
     "type": "module",
     "scripts": {
-        "dev": "node index.js"
+        "dev": "node index.js",
+        "start": "node index.js"
     },
     "dependencies": {
         "cors": "^2.8.5",
