@@ -5,7 +5,7 @@ export async function generateStockReport(stockSummary) {
 
     if (!apiKey) {
         // graceful fallback if no OpenAI key
-        return generateFallbackReport(stockSummary);
+        return generateRuleBasedReport(stockSummary);
     }
 
     const client = new OpenAI({ apiKey });
@@ -39,13 +39,13 @@ ${JSON.stringify(stockSummary, null, 2)}
     }
 }
 
-function generateFallbackReport(stocks) {
-    return stocks.map(stock => {
-        const direction =
-            stock.monthChangePercent >= 0 ? "gained" : "declined";
+function generateRuleBasedReport(stock) {
+  const trend =
+    stock.monthChangePercent > 0 ? "upward" : "downward";
 
-        return `${stock.ticker} ${direction} ${Math.abs(
-            stock.monthChangePercent
-        )}% over the past month, trading between ${stock.monthLow} and ${stock.monthHigh}.`;
-    }).join(" ");
+  return `${stock.ticker} showed a ${trend} trend over the past month,
+moving ${Math.abs(stock.monthChangePercent)}%.
+Price action stayed between ${stock.monthLow} and ${stock.monthHigh},
+suggesting moderate volatility.`;
 }
+
