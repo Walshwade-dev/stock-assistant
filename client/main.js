@@ -109,6 +109,10 @@ function resetTickers() {
 ------------------------ */
 generateBtn.addEventListener("click", fetchStockData);
 
+document.getElementById("closeReport").addEventListener("click", () => {
+    resetToHome(0);
+});
+
 async function fetchStockData() {
     actionPanel.classList.add("hidden");
     outputPanel.classList.add("hidden");
