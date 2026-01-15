@@ -16,19 +16,18 @@ export async function generateStockReport(stockSummary) {
             messages: [
                 {
                     role: "system",
-                    content: "You generate concise financial summaries."
+                    content: "You are a trading guru. Given data on share prices over the past 30 days, write a report of no more than 150 words describing the stocks performance and recommending whether to buy, hold or sell."
                 },
                 {
                     role: "user",
                     content: `
-Summarize the following 1-month stock performance briefly.
-${JSON.stringify(stockSummary, null, 2)}
-`
+                    ${JSON.stringify(stockSummary, null, 2)}
+                    `
                 }
             ],
-            temperature: 0.4
+            temperature:1.1
         });
-
+ 
         return response.choices[0].message.content;
 
     } catch (err) {
