@@ -24,18 +24,28 @@ app.post("/api/stocks", async (req, res) => {
 
     try {
         const stockData = await fetchMassiveData(tickers);
-        const report = await generateStockReport(stockData);
-        
+
+        let report;
+        try {
+            report = await generateStockReport(stockData);
+        } catch (err) {
+            console.error("Report generation failed:", err.message);
+            report = fallbackReport(stockData);
+        }
+
         res.json({
             stocks: stockData,
             report
         });
 
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Failed to fetch stock data" });
+        console.error("Stock fetch failed:", err);
+        res.status(500).json({ error: err.message });
     }
 });
+
+
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -43,3 +53,15 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`API server running on http://localhost:${PORT}`);
 });
+
+function fallbackReport(stocks) {
+    return stocks.map(stock => {
+        const direction =
+            stock.monthChangePercent >= 0 ? "rose" : "declined";
+
+        return `${stock.ticker} ${direction} ${Math.abs(
+            stock.monthChangePercent
+        )}% over the past month, trading between ${stock.monthLow} and ${stock.monthHigh}.`;
+    }).join(" ");
+}
+
