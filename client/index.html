@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col md:max-w-xl md:mx-auto">
+    <!-- Header -->
+    <header class="p-4 border-b border-slate-800 text-center">
+        <div class="relative">
+            <div class="absolute inset-0
+           bg-indigo-700/20
+           rounded-full
+           blur-lg"></div>
+
+            <img src="./images/logo.png" alt="Logo-avatar" class="relative z-10
+           h-20 w-24
+           drop-shadow-xl mx-auto" />
+        </div>
+
+        <p>Stock prediction</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex items-center justify-center text-center">
+        <div class="w-full px-4">
+            <section class="action-panel">
+                <form id="ticker-form" class="space-y-4">
+                    <h2 class="text-base font-medium">
+                        Select up to 3 stock tickers
+                    </h2>
+                    <label for="ticker-input" class="text-sm text-slate-400">
+                        Get supper accurate stock predictions report
+                        <!-- emoji hand pointing down here-->
+                        <i class="ml-1">👇</i><br>
+                        Adding more than 3 tickers may reduce prediction accuracy.
+                    </label>
+                    <div class="flex mt-4 w-full max-w-[240px] mx-auto">
+                        <input id="ticker-input" type="text" placeholder="e.g. AAPL"
+                            class="w-[70%] h-10 rounded-bl-lg bg-slate-800 border border-slate-700 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:ring-inset" />
+                        <button type="submit"
+                            class="w-[30%] h-10 flex items-center justify-center rounded-tr-lg bg-green-600 px-4 py-3 text-xl font-bold text-white hover:bg-green-400/50 transition">
+                            +
+                        </button>
+                    </div>
+                </form>
+
+                <div id="tickerContainer"
+                    class="mt-8 min-h-[48px] rounded-lg px-2 py-2 flex flex-wrap gap-2 items-center justify-center text-sm text-slate-400">
+                    <span class="italic">Selected tickers will appear here</span>
+                </div>
+
+
+                <button id="generateReport" disabled class="mt-6 w-full max-w-[240px] mx-auto h-11 rounded-bl-lg rounded-tr-lg bg-green-600 text-white font-medium opacity-50 cursor-not-allowed transition
+         enabled:opacity-100 enabled:cursor-pointer enabled:hover:bg-green-700">
+                    Generate Report
+                </button>
+
+            </section>
+
+            <section class="loading-panel flex flex-col items-center justify-center mt-8 hidden">
+                <img id="loader" src="images/loader.svg" alt="loading" class="hidden">
+                <div id="api-message">Querying Stocks API...</div>
+            </section>
+            <section class="output-panel mt-4 hidden">
+                <h2>Your Report 😜</h2>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="p-4 text-center text-xs text-slate-500 border-t border-slate-800">
+        © <span id="year"></span> <br />
+        Stock Guide · This application is a dummy financial adviser and does not provide real
+        financial advice.
+    </footer>
+
+</body>
+<script type="module" src="main.js"></script>
+
+</html>
